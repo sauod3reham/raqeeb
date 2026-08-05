@@ -1,7 +1,16 @@
 __pycache__/
 .env
+.env.*
+!.env.example
 data/rag_vectors.json
 reports/
+
+# Python virtual environments
+.venv/
+venv/
+
+# Node (not used by this project, kept for safety if tooling ever adds it)
+node_modules/
 
 # Security: never commit local credentials/hashes or audit logs
 data/users.json
