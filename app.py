@@ -167,7 +167,16 @@ if st.session_state.get("processed_key") != processing_key:
                            role=current_role, resource=image["name"], result="error")
             image_results.append({"name": image["name"], "analysis": analysis_text})
 
-        ensure_vector_store()
+        try:
+            ensure_vector_store()
+        except Exception as exc:
+            st.error(
+                "تعذّر تحضير قاعدة المعرفة (اتصال بخدمة OpenAI فشل — قد يكون بسبب انتهاء رصيد الحساب أو "
+                "مشكلة في مفتاح API). تحقّق من رصيد حسابك على platform.openai.com ثم أعد المحاولة."
+            )
+            log_event(event="knowledge_base_prepared", correlation_id=correlation_id, user=current_user,
+                       role=current_role, result="error", details=str(exc))
+            st.stop()
 
         try:
             result = run_audit(
