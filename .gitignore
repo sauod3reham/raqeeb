@@ -1,0 +1,4 @@
+__pycache__/
+.env
+data/rag_vectors.json
+reports/

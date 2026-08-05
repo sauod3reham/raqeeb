@@ -1,0 +1,470 @@
+# Developing Generative AI Solutions
+## Capstone Project and Assessment Guide
+
+**Submission date:** Thursday, 6 August 2026  
+**Presentation schedule:** To be announced later  
+**Pass mark:** 60% or higher  
+**Project format:** Group project - team size will be announced later  
+**Optional deployment bonus:** **+5 bonus points** for a working published URL
+
+---
+
+## 1. Purpose of the Capstone Project
+
+The capstone project is the practical outcome of the course. Your team will build a small but complete generative AI product that solves a clear real-world problem and can be demonstrated through a working application. Public deployment is optional. A working published URL earns +5 bonus points.
+
+The goal is not to build a large commercial system. The goal is to show that your team can connect the main concepts from the course in one useful product:
+
+1. Use a language model through Python with a clear prompt and structured output.
+2. Build a RAG pipeline that retrieves useful evidence from a knowledge source.
+3. Build an agent that can select and use at least two useful tools.
+4. Present the result through a working application that can be run and demonstrated locally or online.
+5. Explain the main design choices, limitations, and safety considerations.
+
+You have full freedom to choose the project idea, domain, model provider, embedding model, vector database, agent framework, user interface, and deployment service. The selected technologies may be free or paid. Marks are awarded for correct use of the concepts, not for using an expensive service.
+
+> **Core project flow**  
+> User input -> RAG retrieval -> Agent decision -> Tool execution -> Grounded final response -> Working application
+
+---
+
+## 2. Assessment Structure
+
+| Assessment component | Weight | Minimum evidence expected |
+|---|---:|---|
+| Theory Exam | 30% | Understanding of the theoretical slide content from all course days. |
+| RAG | 25% | A complete and understandable retrieval pipeline using embeddings and a vector database. |
+| Agent and Tools | 25% | An agent that selects and uses at least two meaningful Python tools. |
+| Day 1 Concepts | 10% | A clear prompt, Python model call, structured result, and appropriate handling of missing information or errors. |
+| Group Presentation | 5% | A clear explanation and a live demonstration of the working product. |
+| Documentation and GitHub Repository | 5% | A complete, readable repository with all code and a useful README file. |
+| **Total** | **100%** | **A final score of 60% or higher is required to pass.** |
+| **Optional Deployment Bonus** | **+5** | A working published URL that the instructor can open and test. The core rubric remains 100 points; the maximum raw score is 105 points. |
+
+The percentages above are the complete grading categories. The detailed expectations below describe the minimum evidence that should appear in the project; they are not additional sub-percentages.
+
+**Theory Exam (30%):** Understanding of the theoretical slide content from all course days.
+
+### Important practical condition
+
+The project must be runnable and must have a working demonstration. A notebook, design mock-up, or presentation without a functioning product is not enough. Public deployment is **not mandatory**. Teams that publish a working URL receive **+5 bonus points**. A local application is fully acceptable for the required 100% rubric, but it must run correctly during the presentation.
+
+---
+
+## 3. Minimum Practical Requirements
+
+### 3.1 Day 1 Concepts - 10%
+
+Use the Day 1 **model-to-solution** process as a simple planning guide:
+
+```text
+Real problem and target user
+-> Required inputs and expected output
+-> Model and API choice
+-> Prompt, context, and structured response
+-> Validation and error handling
+-> Working application and user experience
+```
+
+Review the Day 1 slides for extra guidance, especially the difference between a model and a complete solution, the system layers, and the development lifecycle.
+
+The product should show the basic model-to-application flow:
+
+- The main logic is written in Python.
+- The application calls a language model through an API or an approved local model.
+- The prompt clearly defines the model's role, task, limits, and expected output.
+- The output is organized for the product, such as JSON, a table, a checklist, a report, or clearly defined fields.
+- The application handles missing input, unsupported files, model errors, or insufficient evidence in a clear way.
+- The team can explain how the prompt was improved after testing.
+
+### 3.2 RAG - 25%
+
+The RAG component should be visible in the code and understandable to the team. At minimum, it should include:
+
+- A useful knowledge source related to the problem.
+- Document or data ingestion.
+- Text extraction and basic cleaning where needed.
+- A reasonable chunking method.
+- An embedding model.
+- A vector database or vector store.
+- Query embedding and retrieval of relevant chunks.
+- Metadata such as source name, page, section, category, or record ID.
+- A grounded prompt that uses the retrieved evidence.
+- Sources shown in the final result when possible.
+- A clear response when the knowledge base does not contain enough evidence.
+
+The code should clearly separate the two RAG stages:
+
+**Knowledge preparation:**  
+Documents -> Extract -> Clean -> Chunk -> Embed -> Store
+
+**Product runtime:**  
+User query -> Query embedding -> Retrieve -> Build context -> Generate grounded answer
+
+### 3.3 Agent and Tools - 25%
+
+The agent should perform a useful decision, not only run a fixed list of functions. At minimum:
+
+- The agent has access to at least **two meaningful Python tools**.
+- Each tool has a clear purpose and defined inputs and outputs.
+- The agent selects the appropriate tool based on the user request or intermediate result.
+- A request may use Tool 1, Tool 2, or both when appropriate.
+- Python code validates the tool arguments before execution.
+- The result of the tool is returned to the agent or final product pipeline.
+- The agent has a stopping condition, step limit, timeout, or another simple control.
+- Tool errors are handled without crashing the full application.
+- Sensitive or high-impact actions should require confirmation or should be simulated safely.
+
+RAG retrieval does not count as one of the two required tools. The project must show both RAG and at least two additional useful tools.
+
+Examples of meaningful tools include calculating a compliance score, producing a CSV report, creating a study plan, generating a maintenance ticket, ranking suppliers, formatting tasks, checking a date, or searching an approved structured dataset.
+
+---
+
+## 4. Recommended Product Architecture
+
+A simple architecture is enough. The following structure is recommended because it keeps the course concepts visible:
+
+### Offline knowledge preparation
+
+```text
+Knowledge files or records
+        |
+        v
+Extract and clean content
+        |
+        v
+Create coherent chunks and metadata
+        |
+        v
+Generate embeddings
+        |
+        v
+Store vectors in the selected vector database
+```
+
+### Online product flow
+
+```text
+User uses the working application
+        |
+        v
+Validate the input
+        |
+        v
+Retrieve relevant evidence from the vector database
+        |
+        v
+Send the request, evidence, and available tools to the agent
+        |
+        v
+Agent selects and runs Tool 1, Tool 2, or both
+        |
+        v
+Return a structured answer with sources and useful output
+```
+
+A simple Streamlit interface is recommended because the course uses Python. Other interfaces are allowed if the team understands and can explain them.
+
+---
+
+## 5. Technology Choices, Data, and Optional Deployment
+
+Teams have freedom to choose their technologies. The following options are suggestions, not mandatory requirements.
+
+| Component | Easy recommended option | Other acceptable options |
+|---|---|---|
+| Programming language | Python | Python must remain the main language for the project logic. |
+| User interface | Streamlit | Gradio or another web interface. |
+| LLM | Gemini API | Another hosted API or an approved local model. |
+| Embeddings | Gemini embedding model | A local sentence-transformers model or another embedding API. |
+| Vector database | Qdrant Cloud | Supabase pgvector, Chroma, Pinecone, Weaviate, or another suitable vector store. |
+| Validation | Pydantic | Clear manual validation is acceptable for a small project. |
+| Optional deployment | Streamlit Community Cloud | Render or another service that supports the selected application. A working published URL earns +5 bonus points. |
+
+### Recommended simple path
+
+For the lowest setup complexity, use:
+
+**Python + Streamlit + Gemini + Qdrant Cloud + GitHub**  
+
+For teams that want the optional deployment bonus, Streamlit Community Cloud is the recommended publishing service.
+
+Qdrant Cloud provides a free cluster suitable for prototypes. Supabase is a useful alternative when the project also needs relational tables, file storage, or user data. Gemini currently provides free-tier options for supported models and embeddings. Provider limits may change, so verify the current account limits before the final demo.
+
+### Data options
+
+The project does not require a large dataset. A small, relevant, clean dataset is better than a large random dataset.
+
+Teams may use:
+
+- Public documents or open datasets.
+- Sample policies, manuals, procedures, job descriptions, lecture notes, or product specifications.
+- Team-created documents.
+- Synthetic data generated for the project.
+- A small combination of PDF, text, CSV, image, or audio inputs when relevant.
+
+If synthetic or generated data is used, state this clearly in the README. Do not upload confidential, personal, copyrighted, or sensitive information without permission.
+
+---
+
+## 6. Suggested Python Project Structure
+
+This structure is optional. Teams may simplify or extend it based on the project.
+
+```text
+project-name/
+|-- app.py
+|-- requirements.txt
+|-- README.md
+|-- .env.example
+|-- .gitignore
+|-- data/
+|   `-- sample_documents/
+|-- scripts/
+|   `-- ingest_documents.py
+|-- src/
+|   |-- config.py
+|   |-- schemas.py
+|   |-- llm/
+|   |   |-- client.py
+|   |   `-- prompts.py
+|   |-- rag/
+|   |   |-- loaders.py
+|   |   |-- chunking.py
+|   |   |-- embeddings.py
+|   |   |-- vector_store.py
+|   |   |-- ingest.py
+|   |   `-- retriever.py
+|   |-- agent/
+|   |   |-- orchestrator.py
+|   |   |-- tool_registry.py
+|   |   `-- guardrails.py
+|   |-- tools/
+|   |   |-- tool_1.py
+|   |   `-- tool_2.py
+|   `-- services/
+|       `-- product_pipeline.py
+`-- evaluation/
+    |-- test_cases.json
+    `-- results.md
+```
+
+The structure should help the instructor find the prompt logic, RAG pipeline, agent, tools, application, and test evidence quickly. A smaller project may combine some files, but the code should remain readable.
+
+---
+
+## 7. README and GitHub Repository - 5%
+
+No separate external report is required. The **README.md file is the main project documentation**.
+
+The README should include at least:
+
+1. Project title.
+2. Team name.
+3. Team member names.
+4. Problem statement and target user.
+5. Proposed solution and expected value.
+6. Main features.
+7. Simple architecture or flow.
+8. How Day 1 concepts are used.
+9. How the RAG pipeline works.
+10. The embedding model and vector database used.
+11. The agent design and the two or more tools.
+12. Technology stack.
+13. Data sources and whether any data is synthetic.
+14. Local setup and run instructions.
+15. Required environment variables using `.env.example` without real secrets.
+16. Published application URL, if available (optional bonus).
+17. Known limitations and possible future improvements.
+18. Sample test cases or screenshots when useful.
+
+The GitHub repository should contain all required source code and dependency files. Do not commit API keys, passwords, private tokens, or private data. AI coding assistants may be used, but the team must understand the code it submits and be able to explain the main flow.
+
+---
+
+## 8. Five Suggested Real-World Project Ideas
+
+These ideas are examples only. Teams have full freedom to select another useful problem as long as all assessment requirements are met.
+
+### Idea 1 - Meeting-to-Action Assistant
+
+**Problem:** Teams lose decisions, responsibilities, and deadlines after meetings.  
+**Input:** Meeting transcript plus project guidelines or team information.  
+**RAG:** Retrieves project roles, policies, deadlines, and approved task formats.  
+**Possible tools:** Extract and normalize dates; export action items to CSV or a formatted report.  
+**Output:** Decisions, tasks, owners, deadlines, risks, and a downloadable action plan.
+
+### Idea 2 - Requirements and Document Compliance Checker
+
+**Problem:** Reviewing a proposal against a requirements document is slow and inconsistent.  
+**Input:** Requirements document and submitted proposal.  
+**RAG:** Retrieves the relevant requirement and supporting evidence from both files.  
+**Possible tools:** Calculate a compliance score; export a compliance report.  
+**Output:** Compliant, partially compliant, or missing requirements with sources.
+
+### Idea 3 - Smart Lecture Study Assistant
+
+**Problem:** Students need a faster way to study long lecture slides and transcripts.  
+**Input:** Lecture slides, transcript, and student question.  
+**RAG:** Answers from the approved lecture material with slide or page references.  
+**Possible tools:** Generate flashcards; create a study plan or quiz file.  
+**Output:** Grounded answers, summary, key concepts, questions, and study resources.
+
+### Idea 4 - Procurement Offer Comparison Assistant
+
+**Problem:** Comparing supplier offers against technical and purchasing rules takes time.  
+**Input:** Supplier offers, purchasing requirements, and evaluation criteria.  
+**RAG:** Retrieves exact requirements, specifications, and supplier evidence.  
+**Possible tools:** Calculate weighted supplier scores; generate a comparison report.  
+**Output:** Comparison table, missing requirements, risks, scores, and recommendation.
+
+### Idea 5 - Maintenance Inspection Assistant
+
+**Problem:** A technician needs quick access to relevant procedures during initial inspection.  
+**Input:** Equipment description or image, reported symptoms, and maintenance manual.  
+**RAG:** Retrieves relevant manual sections and safety instructions.  
+**Possible tools:** Calculate a simple risk level; create a maintenance ticket or checklist.  
+**Output:** Possible issue, evidence, safety warning, inspection steps, and a structured ticket.
+
+---
+
+## 9. Submission Instructions
+
+The complete project is due on **Thursday, 6 August 2026**. The exact submission cutoff and Google Form link will be shared soon.
+
+The form is expected to collect the essential project information, including:
+
+- Team name and team members.
+- Project title and short description.
+- Complete GitHub repository URL.
+- Published application URL, if available (optional bonus).
+- Any short note required by the instructor.
+
+Ensure the repository is accessible to the instructor. The repository must contain the complete code used for evaluation.
+
+Before submission, test the project locally. If the project is published, test the deployed URL as well. Confirm that required files, API configuration instructions, and sample data are present.
+
+---
+
+## 10. Presentation Instructions - 5%
+
+The presentation date, exact time, and final team schedule will be announced later.
+
+- Maximum recommended length: approximately 5 minutes.
+- Maximum slide count: 10 slides.
+- Expected questions: approximately 1-2 short questions per team.
+- One member or multiple members may present.
+- The team should understand the essential product flow, even if one member delivers most of the presentation.
+- A live demo is required. It may run locally or from a published URL. Verify that the application works before the presentation.
+
+### Suggested presentation flow
+
+1. Team and project title.
+2. Real-world problem and target user.
+3. Proposed solution and value.
+4. Input data and knowledge base.
+5. System architecture.
+6. RAG pipeline.
+7. Agent and available tools.
+8. Live product demonstration.
+9. Test result, limitation, or failure case.
+10. Conclusion and future improvement.
+
+---
+
+## 11. Ten Questions Your Team Should Be Ready to Answer
+
+1. **What real problem does the product solve, and who is the target user?**  
+   Explain the user, pain point, and expected benefit in one clear statement.
+
+2. **Why is a language model useful for this problem?**  
+   Identify the task requiring understanding, extraction, classification, generation, or reasoning.
+
+3. **Why did you use RAG instead of sending only a direct prompt?**  
+   Explain what private or project-specific evidence the model needs.
+
+4. **What data did you use, and how was it prepared?**  
+   Mention extraction, cleaning, chunking, metadata, and any synthetic data.
+
+5. **Which embedding model and vector database did you choose, and why?**  
+   Give a practical reason such as cost, simplicity, language support, or deployment needs.
+
+6. **How does the agent decide which tool to use?**  
+   Explain the available tools, tool descriptions, and decision flow.
+
+7. **Show one request that uses Tool 1 and another that uses Tool 2.**  
+   Be ready to demonstrate that the tools are selected based on the task.
+
+8. **What happens when the required information is not in the knowledge base?**  
+   Show that the product does not confidently invent unsupported information.
+
+9. **How did you test the product and handle errors?**  
+   Mention normal cases, missing data, failed retrieval, invalid input, and tool failure.
+
+10. **What is the main limitation, and what would you improve next?**  
+    Give an honest and realistic improvement rather than claiming the product is perfect.
+
+---
+
+## 12. Final Team Checklist
+
+Use this checklist to track progress from idea selection to the final presentation.
+
+### Project Planning
+
+- [ ] We selected a clear real-world problem and target user.
+- [ ] We defined the product input, expected output, and useful value.
+- [ ] We selected a manageable idea that can be completed and demonstrated.
+- [ ] We assigned team responsibilities.
+
+### Day 1 - Model to Solution
+
+- [ ] The main product logic is written in Python.
+- [ ] The model call, prompt, context, and structured output are clear in the code.
+- [ ] The application validates input and handles basic errors.
+- [ ] We can explain the flow from the model to the complete solution.
+
+### RAG
+
+- [ ] We prepared a relevant knowledge source or synthetic sample data.
+- [ ] The code shows extraction, cleaning, chunking, embeddings, and vector storage.
+- [ ] Retrieval returns useful chunks with source metadata.
+- [ ] The final answer uses retrieved evidence and handles missing evidence safely.
+
+### Agent and Tools
+
+- [ ] The agent has at least two meaningful Python tools.
+- [ ] Each tool has clear inputs, outputs, and validation.
+- [ ] The agent can select Tool 1, Tool 2, or both when appropriate.
+- [ ] Tool failures and stopping conditions are handled.
+
+### Testing, Repository, and Documentation
+
+- [ ] The complete project runs locally on the team computer.
+- [ ] `requirements.txt`, `.env.example`, sample data, and run instructions are included.
+- [ ] No API keys, passwords, or sensitive data are committed to GitHub.
+- [ ] The README contains the team, problem, solution, architecture, RAG, agent, tools, setup, data, limitations, and test evidence.
+- [ ] The GitHub repository is accessible to the instructor.
+
+### Presentation and Optional Publishing
+
+- [ ] We prepared no more than 10 slides.
+- [ ] We rehearsed an approximately five-minute explanation and live demo.
+- [ ] The team can answer basic questions about the code and system flow.
+- [ ] Optional: the published URL works and is included for the +5 bonus points.
+
+
+Build something useful, keep the scope achievable, and make the implementation easy to explain. A focused product that works well is stronger than a large product that is incomplete. After the course, you can improve the project, add screenshots and results to the README, and share it as a portfolio project on LinkedIn.
+
+---
+
+## Official Setup References
+
+Tool limits and free-tier conditions can change. Use the official documentation when creating your accounts and deploying:
+
+- Gemini API pricing and embedding models: https://ai.google.dev/gemini-api/docs/pricing
+- Qdrant Cloud free cluster: https://qdrant.tech/documentation/cloud/create-cluster/
+- Supabase pgvector: https://supabase.com/docs/guides/database/extensions/pgvector
+- Streamlit Community Cloud deployment: https://docs.streamlit.io/deploy/streamlit-community-cloud
+- Render free services, if selected: https://render.com/docs/free

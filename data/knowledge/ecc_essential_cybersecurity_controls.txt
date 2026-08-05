@@ -1,0 +1,205 @@
+Document: Essential Cybersecurity Controls (ECC-2:2024) - National Cybersecurity Authority (NCA), Kingdom of Saudi Arabia.
+Overview: The ECC consist of 4 main domains, 21 subdomains, and 108 main controls (with sub-controls). They set the minimum cybersecurity requirements for government agencies, their affiliated companies, and private entities owning/operating/hosting Critical National Infrastructure (CNI) in Saudi Arabia. Protection goals: Confidentiality, Integrity, Availability. Pillars: Strategy, People, Process, Technology.
+
+===== Domain 1: Cybersecurity Governance =====
+
+Subdomain 1-1 Cybersecurity Strategy
+Objective: Ensure the entity's action plans, objectives, initiatives, and projects contribute to compliance with relevant legislative and regulatory requirements.
+1-1-1 The cybersecurity strategy shall be identified, documented, approved, and supported by the Authorized Official, aligned with relevant legislative and regulatory requirements.
+1-1-2 The entity shall execute an action plan to apply the cybersecurity strategy.
+1-1-3 The cybersecurity strategy shall be reviewed at planned intervals or upon changes to relevant requirements.
+
+Subdomain 1-2 Cybersecurity Management
+Objective: Ensure the Authorized Official complies with and supports implementation and management of cybersecurity programs.
+1-2-1 A cybersecurity department shall be established, independent from IT/Communications Department, ideally reporting directly to the head of the entity.
+1-2-2 All cybersecurity positions shall be filled with full-time and qualified Saudi cybersecurity professionals.
+1-2-3 A cybersecurity supervisory committee shall be established with identified members, responsibilities, and governance framework, including the head of the cybersecurity department.
+
+Subdomain 1-3 Cybersecurity Policies and Procedures
+Objective: Ensure cybersecurity requirements and compliance are documented and communicated.
+1-3-1 Cybersecurity policies and procedures, including controls and requirements, shall be identified, documented, approved, and communicated.
+1-3-2 The cybersecurity department shall ensure implementation of policies and procedures.
+1-3-3 Policies and procedures shall be supported by technical security standards (e.g., firewall, database, OS standards).
+1-3-4 Policies and procedures shall be reviewed and updated at planned intervals or upon changes; changes documented and approved.
+
+Subdomain 1-4 Cybersecurity Roles and Responsibilities
+Objective: Ensure roles and responsibilities are clearly defined for all parties implementing cybersecurity controls.
+1-4-1 The Authorized Official shall identify, document, and approve the governance organizational structure, roles, and responsibilities.
+1-4-2 Roles and responsibilities shall be reviewed and updated at planned intervals or upon changes.
+
+Subdomain 1-5 Cybersecurity Risk Management
+Objective: Ensure managing cybersecurity risks methodologically to protect information and technology assets.
+1-5-1 The cybersecurity risk management methodology and procedures shall be identified, documented, and approved.
+1-5-2 The methodology and procedures shall be implemented.
+1-5-3 Risk assessment shall be implemented at least: (1-5-3-1) at early stage of technology projects; (1-5-3-2) before major changes to technology infrastructure; (1-5-3-3) during planning to obtain third-party services; (1-5-3-4) during planning and before release of new technology services/products.
+1-5-4 The methodology and procedures shall be reviewed and updated periodically.
+
+Subdomain 1-6 Cybersecurity in Information and Technology Project Management
+Objective: Ensure cybersecurity requirements are included in project management methodology to protect confidentiality, integrity, accuracy, and availability.
+1-6-1 Cybersecurity requirements shall be included in project management methodology and change management.
+1-6-2 Requirements for project/change management shall include at minimum: (1-6-2-1) vulnerability assessment and remediation; (1-6-2-2) reviewing secure configuration, hardening, and update packages before launching projects/changes.
+1-6-3 Requirements for software/application development shall include at minimum: (1-6-3-1) secure coding standards; (1-6-3-2) trusted/licensed sources for development tools and libraries; (1-6-3-3) compliance testing against cybersecurity requirements; (1-6-3-4) secure integration between applications; (1-6-3-5) reviewing secure configuration/hardening and updates before launching software products.
+1-6-4 Project management cybersecurity requirements shall be periodically reviewed.
+
+Subdomain 1-7 Compliance with Cybersecurity Standards, Laws and Regulations
+Objective: Ensure the entity's cybersecurity program complies with relevant legislative and regulatory requirements.
+1-7-1 If nationally approved international agreements/commitments include cybersecurity requirements, the entity shall identify and comply with them.
+
+Subdomain 1-8 Periodical Cybersecurity Review and Audit
+Objective: Ensure cybersecurity controls are implemented and applicable per policies, national and international requirements.
+1-8-1 The cybersecurity department shall periodically review implementation of cybersecurity controls.
+1-8-2 Implementation shall also be reviewed/audited by parties other than the cybersecurity department, independently, per Generally Accepted Auditing Standards (GAAS).
+1-8-3 Results of audits/reviews shall be documented and presented to the supervisory committee and Authorized Official, including scope, observations, recommendations, corrective actions, and remediation plans.
+
+Subdomain 1-9 Cybersecurity in Human Resources
+Objective: Ensure cybersecurity risks and requirements for personnel are managed efficiently before, during, and after employment.
+1-9-1 Requirements for personnel shall be identified, documented, and approved for all employment stages.
+1-9-2 Requirements for personnel shall be implemented.
+1-9-3 Pre-employment requirements shall include at minimum: (1-9-3-1) non-disclosure and cybersecurity responsibility clauses in contracts; (1-9-3-2) screening/vetting for cybersecurity and privileged technical positions.
+1-9-4 During-employment requirements shall include at minimum: (1-9-4-1) cybersecurity awareness during onboarding and employment; (1-9-4-2) implementation and compliance with cybersecurity policies/procedures/operations.
+1-9-5 Personnel access/powers shall be reviewed and revoked immediately upon end/termination of employment.
+1-9-6 Personnel cybersecurity requirements shall be periodically reviewed.
+
+Subdomain 1-10 Cybersecurity Awareness and Training Program
+Objective: Ensure personnel have required security awareness, know their responsibilities, and are equipped with necessary skills.
+1-10-1 An awareness program delivered through multiple channels shall be periodically developed and approved.
+1-10-2 The approved program shall be implemented.
+1-10-3 The program shall cover at minimum: (1-10-3-1) secure handling of email/phishing; (1-10-3-2) secure handling of mobile devices/storage media; (1-10-3-3) secure internet browsing; (1-10-3-4) secure usage of social media.
+1-10-4 Specialized training shall be provided per role: (1-10-4-1) cybersecurity department personnel; (1-10-4-2) software/application developers and IT asset operators; (1-10-4-3) executive/supervisory positions.
+1-10-5 Implementation of the awareness program shall be periodically reviewed.
+
+===== Domain 2: Cybersecurity Defense =====
+
+Subdomain 2-1 Asset Management
+Objective: Ensure an accurate, updated inventory of information and technology assets to maintain confidentiality, integrity, accuracy, and availability.
+2-1-1 Cybersecurity requirements for asset management shall be identified, documented, and approved.
+2-1-2 Requirements shall be implemented.
+2-1-3 The acceptable use policy for assets shall be identified, documented, approved, and communicated.
+2-1-4 The acceptable use policy shall be implemented.
+2-1-5 Assets shall be classified, labeled, and handled per relevant legislative and regulatory requirements.
+2-1-6 Asset management requirements shall be periodically reviewed.
+
+Subdomain 2-2 Identity and Access Management
+Objective: Ensure protection of logical access to prevent unauthorized access and restrict access to necessary scope.
+2-2-1 Identity and access management requirements shall be identified, documented, and approved.
+2-2-2 Requirements shall be implemented.
+2-2-3 Requirements shall include at minimum: (2-2-3-1) single-factor authentication (username/password); (2-2-3-2) multi-factor authentication for remote access and privileged accounts; (2-2-3-3) user authorization based on need-to-know, need-to-use, least privilege, segregation of duties; (2-2-3-4) privileged access management; (2-2-3-5) periodic review of identities and access rights.
+2-2-4 Implementation shall be periodically reviewed.
+
+Subdomain 2-3 Information System and Information Processing Facilities Protection
+Objective: Ensure protection of information systems and processing facilities, including workstations and infrastructure, against cyber risks.
+2-3-1 Requirements shall be identified, documented, and approved.
+2-3-2 Requirements shall be implemented.
+2-3-3 Requirements shall include at minimum: (2-3-3-1) protection from viruses/malware on workstations and servers using modern technologies; (2-3-3-2) strict restriction on external storage media use; (2-3-3-3) patch management for systems/applications/devices; (2-3-3-4) centralized clock synchronization with an accurate trusted source (e.g., SASO).
+2-3-4 Implementation shall be periodically reviewed.
+
+Subdomain 2-4 Email Protection
+Objective: Ensure protection of the entity's email service against cyber risks.
+2-4-1 Requirements shall be identified, documented, and approved.
+2-4-2 Requirements shall be implemented.
+2-4-3 Requirements shall include at minimum: (2-4-3-1) analyzing/filtering phishing and spam emails; (2-4-3-2) multi-factor authentication for remote/webmail access; (2-4-3-3) email archiving and backup; (2-4-3-4) protection against Advanced Persistent Threats (APT)/zero-day malware; (2-4-3-5) domain validation via SPF, DKIM, and DMARC.
+2-4-4 Implementation shall be periodically reviewed.
+
+Subdomain 2-5 Network Security Management
+Objective: Ensure protection of the entity's networks against cyber risks.
+2-5-1 Requirements shall be identified, documented, and approved.
+2-5-2 Requirements shall be implemented.
+2-5-3 Requirements shall include at minimum: (2-5-3-1) logical/physical network segmentation using firewall and defense-in-depth; (2-5-3-2) isolation of production network from test/dev environments; (2-5-3-3) secure browsing/internet connectivity with restrictions on suspicious sites; (2-5-3-4) wireless network security and encryption; (2-5-3-5) restricting/managing network ports, protocols, and services; (2-5-3-6) Intrusion Prevention Systems (IPS); (2-5-3-7) DNS security; (2-5-3-8) protection of internet browsing channel against APT; (2-5-3-9) protection against DDoS attacks.
+2-5-4 Implementation shall be periodically reviewed.
+
+Subdomain 2-6 Mobile Devices Security
+Objective: Ensure protection of mobile devices (laptops, smartphones, tablets) and secure BYOD handling.
+2-6-1 Requirements shall be identified, documented, and approved.
+2-6-2 Requirements shall be implemented.
+2-6-3 Requirements shall include at minimum: (2-6-3-1) separation/encryption of data on mobile devices/BYOD; (2-6-3-2) controlled/restricted use per business interest; (2-6-3-3) deletion of data upon device loss or employment termination; (2-6-3-4) security awareness for users.
+2-6-4 Implementation shall be periodically reviewed.
+
+Subdomain 2-7 Data and Information Protection
+Objective: Ensure confidentiality, integrity, accuracy, and availability of data and information.
+2-7-1 Requirements for protecting/handling data shall be identified, documented, and approved.
+2-7-2 Requirements shall be implemented based on data classification level.
+2-7-3 Implementation shall be periodically reviewed.
+
+Subdomain 2-8 Cryptography
+Objective: Ensure proper and efficient use of cryptography to protect electronic information assets.
+2-8-1 Requirements shall be identified, documented, and approved.
+2-8-2 Requirements shall be implemented.
+2-8-3 Requirements shall include at minimum the National Cryptographic Standards (published by NCA): (2-8-3-1) approved cryptographic systems/solutions standards and restrictions; (2-8-3-2) secure management of cryptographic keys during their lifecycle; (2-8-3-3) encryption of data in-transit and at-rest per classification.
+2-8-4 Implementation shall be periodically reviewed.
+
+Subdomain 2-9 Backup and Recovery Management
+Objective: Ensure protection of data, information, and technical configurations against cyber risks via backups.
+2-9-1 Requirements shall be identified, documented, and approved.
+2-9-2 Requirements shall be implemented.
+2-9-3 Requirements shall include at minimum: (2-9-3-1) backup scope covering critical technology/information assets; (2-9-3-2) ability to quickly recover data/systems after incidents; (2-9-3-3) periodic testing of backup recovery effectiveness.
+2-9-4 Implementation shall be periodically reviewed.
+
+Subdomain 2-10 Vulnerabilities Management
+Objective: Ensure timely detection and effective remediation of technical vulnerabilities.
+2-10-1 Requirements shall be identified, documented, and approved.
+2-10-2 Requirements shall be implemented.
+2-10-3 Requirements shall include at minimum: (2-10-3-1) periodic vulnerability assessment/detection; (2-10-3-2) vulnerability classification by severity; (2-10-3-3) remediation based on classification and cyber risk; (2-10-3-4) patch management verified in a non-production environment before deployment; (2-10-3-5) subscription with trusted sources for new vulnerabilities.
+2-10-4 Implementation shall be periodically reviewed.
+
+Subdomain 2-11 Penetration Testing
+Objective: Assess and test cybersecurity defense capabilities via simulated attacks to discover unknown weaknesses.
+2-11-1 Requirements shall be identified, documented, and approved.
+2-11-2 Requirements shall be implemented.
+2-11-3 Requirements shall include at minimum: (2-11-3-1) scope covering all externally provided services (infrastructure, websites, web apps, mobile apps, email, remote access); (2-11-3-2) conducting penetration tests periodically.
+2-11-4 Implementation shall be periodically reviewed.
+
+Subdomain 2-12 Cybersecurity Event Logs and Monitoring Management
+Objective: Ensure timely collection, analysis, and monitoring of event logs for proactive detection of cyber-attacks.
+2-12-1 Requirements shall be identified, documented, and approved.
+2-12-2 Requirements shall be implemented.
+2-12-3 Requirements shall include at minimum: (2-12-3-1) activation of event logs for critical information assets; (2-12-3-2) activation of logs for privileged/remote access accounts; (2-12-3-3) SIEM techniques for log collection; (2-12-3-4) continuous monitoring of event logs; (2-12-3-5) retention period of at least 12 months.
+2-12-4 Implementation shall be periodically reviewed.
+
+Subdomain 2-13 Cybersecurity Incident and Threat Management
+Objective: Ensure timely identification, detection, and effective management of cybersecurity incidents and proactive response to threats.
+2-13-1 Requirements shall be identified, documented, and approved.
+2-13-2 Requirements shall be implemented.
+2-13-3 Requirements shall include at minimum: (2-13-3-1) incident response plans and escalation procedures; (2-13-3-2) incident classification; (2-13-3-3) reporting incidents to NCA; (2-13-3-4) sharing incident notifications/threat intelligence/indicators/reports with NCA; (2-13-3-5) collecting and handling threat intelligence feeds.
+2-13-4 Implementation shall be periodically reviewed.
+
+Subdomain 2-14 Physical Security
+Objective: Ensure protection of information and technology assets against unauthorized physical access, loss, theft, and damage.
+2-14-1 Requirements shall be identified, documented, and approved.
+2-14-2 Requirements shall be implemented.
+2-14-3 Requirements shall include at minimum: (2-14-3-1) authorized access to critical areas (data center, DR center, security surveillance center, network rooms); (2-14-3-2) access and monitoring logs (CCTV); (2-14-3-3) protection of access/monitoring log information; (2-14-3-4) secure destruction/re-use of physical assets holding classified information; (2-14-3-5) security of devices/equipment inside and outside facilities.
+2-14-4 Implementation shall be periodically reviewed.
+
+Subdomain 2-15 Web Application Security
+Objective: Ensure protection of external web applications against cyber risks.
+2-15-1 Requirements shall be identified, documented, and approved.
+2-15-2 Requirements shall be implemented.
+2-15-3 Requirements shall include at minimum: (2-15-3-1) web application firewall; (2-15-3-2) multi-tier architecture; (2-15-3-3) secure protocols (e.g., HTTPS); (2-15-3-4) clarified secure usage policy for users; (2-15-3-5) user authentication with appropriate factors based on risk assessment.
+2-15-4 Implementation shall be periodically reviewed.
+
+===== Domain 3: Cybersecurity Resilience =====
+
+Subdomain 3-1 Cybersecurity Resilience Aspects of Business Continuity Management (BCM)
+Objective: Ensure cybersecurity resilience requirements are included in business continuity management to minimize impacts of disruptions on critical e-services caused by cyber risks.
+3-1-1 Requirements shall be identified, documented, and approved.
+3-1-2 Requirements shall be implemented.
+3-1-3 Requirements shall include at minimum: (3-1-3-1) ensuring continuity of cybersecurity systems/procedures; (3-1-3-2) developing response plans for incidents affecting business continuity; (3-1-3-3) developing disaster recovery plans.
+3-1-4 Implementation shall be periodically reviewed.
+
+===== Domain 4: Third-Party and Cloud Computing Cybersecurity =====
+
+Subdomain 4-1 Third-Party Cybersecurity
+Objective: Ensure protection of the entity's assets against third-party cybersecurity risks (IT outsourcing, cybersecurity outsourcing, managed services).
+4-1-1 Requirements for contracts/agreements with third parties shall be identified, documented, and approved.
+4-1-2 Requirements for contracts/SLAs shall include at minimum: (4-1-2-1) non-disclosure and secure data removal clauses upon service end; (4-1-2-2) communication procedures in case of a cybersecurity incident; (4-1-2-3) obligating third parties to apply the entity's cybersecurity requirements/policies and relevant laws.
+4-1-3 Requirements for IT/cybersecurity outsourcing or managed services contracts shall include at minimum: (4-1-3-1) conducting a cybersecurity risk assessment before signing contracts or upon regulatory changes; (4-1-3-2) managed service centers using remote access shall be fully located within Saudi Arabia.
+4-1-4 Third-party requirements shall be periodically reviewed.
+
+Subdomain 4-2 Cloud Computing and Hosting Cybersecurity
+Objective: Ensure proper remediation of cyber risks and implementation of cybersecurity requirements for cloud computing and hosting, protecting assets hosted/processed/managed by third parties.
+4-2-1 Requirements for use of cloud computing/hosting services shall be identified, documented, and approved.
+4-2-2 Requirements shall be implemented.
+4-2-3 Requirements shall include at minimum: (4-2-3-1) protection of entity's data by cloud/hosting providers per classification level, and returning data in usable format upon service completion; (4-2-3-2) separation of the entity's environment (especially virtual servers) from other entities' environments within the cloud provider.
+4-2-4 Requirements shall be periodically reviewed.
+
+===== Attribution Note =====
+This is a condensed summary based on the official document "Essential Cybersecurity Controls (ECC-2:2024)" issued by the National Cybersecurity Authority (NCA), Kingdom of Saudi Arabia. For formal audits, refer to the full official document and its companion "Guide to Essential Cybersecurity Controls (ECC) Implementation (GECC-2:2026)" for relevant cybersecurity tools, implementation guidelines, and expected deliverables per control.
