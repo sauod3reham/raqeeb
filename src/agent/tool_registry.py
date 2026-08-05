@@ -1,3 +1,9 @@
+"""Fixed, non-agentic tool set invoked directly by orchestrator code — never
+selected or executed dynamically based on LLM/user output. Both functions are
+pure data transforms (no filesystem/network/subprocess/eval access), which is
+the allowlist boundary for this module: any future tool must keep that
+property, and any tool with real side effects (write/delete/send) must
+require explicit human confirmation before running (see app.py gating)."""
 import csv
 import io
 from typing import List

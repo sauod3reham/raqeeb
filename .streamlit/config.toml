@@ -1,0 +1,13 @@
+[server]
+# Streamlit's built-in XSRF (CSRF) protection. Note: Streamlit requires
+# enableCORS=true for the XSRF cookie mechanism to work, so it auto-overrides
+# enableCORS if set to false here — enableXsrfProtection is the setting that
+# actually matters for this app and is kept on.
+enableXsrfProtection = true
+enableCORS = true
+# Hard cap on any single upload (defense-in-depth on top of the explicit
+# per-file-type checks in src/security/file_validation.py).
+maxUploadSize = 20
+
+[browser]
+gatherUsageStats = false

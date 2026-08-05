@@ -2,3 +2,9 @@ __pycache__/
 .env
 data/rag_vectors.json
 reports/
+
+# Security: never commit local credentials/hashes or audit logs
+data/users.json
+logs/
+*.log
+.pytest_cache/
