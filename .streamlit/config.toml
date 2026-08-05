@@ -11,3 +11,14 @@ maxUploadSize = 20
 
 [browser]
 gatherUsageStats = false
+
+[theme]
+# Colors approximating the Saudi Digital Government visual identity
+# (navy + teal) — no official DGA brand file was supplied, so this is a
+# best-effort palette, not a guaranteed pixel-exact match.
+base = "light"
+primaryColor = "#00A79D"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F7F9FA"
+textColor = "#0B2545"
+font = "sans serif"

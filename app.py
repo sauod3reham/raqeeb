@@ -16,8 +16,12 @@ from src.security.auth import AUTH_ENABLED, verify_credentials, has_permission, 
 from src.security.file_validation import validate_document_upload, sanitize_plain_text, MAX_TEXT_LEN
 from src.security.rate_limit import check_rate_limit
 from src.security.audit_log import log_event, new_correlation_id
+from src.ui.theme import THEME_CSS
 
 st.set_page_config(page_title="Digital Transformation Compliance Auditor", layout="wide")
+# Static, hardcoded theme only (see src/ui/theme.py docstring for why this is
+# the one safe use of unsafe_allow_html in the app — enforced by a test).
+st.markdown(THEME_CSS, unsafe_allow_html=True)
 
 # ----------------------------------------------------------------------------
 # Auth gate (server-side; Streamlit executes this script entirely on the

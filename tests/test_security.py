@@ -146,9 +146,48 @@ def test_safe_random_filename_has_no_path_separators():
 # 7. XSS — static regression guard (Streamlit auto-escapes st.write/text
 # inputs by default; the real control is *never* opting back into raw HTML).
 # ---------------------------------------------------------------------------
-def test_no_unsafe_html_rendering_in_app():
+def test_unsafe_html_used_at_most_once_and_only_for_static_theme():
+    """unsafe_allow_html is dangerous only when it renders dynamic/untrusted
+    content. This app allows exactly one use — a hardcoded CSS theme — and
+    this test pins that down so a future change can't quietly start
+    rendering document/audit output as raw HTML."""
     app_source = (PROJECT_ROOT / "app.py").read_text(encoding="utf-8")
-    assert "unsafe_allow_html" not in app_source
+    occurrences = app_source.count("unsafe_allow_html=True")
+    assert occurrences == 1, (
+        f"توقعت استخدامًا واحدًا فقط لـ unsafe_allow_html (للثيم الثابت)، وُجد {occurrences}."
+    )
+    assert "st.markdown(THEME_CSS, unsafe_allow_html=True)" in app_source
+
+
+def test_theme_css_is_a_static_string_literal_not_fstring():
+    """THEME_CSS must never become an f-string / interpolated value — that
+    is what would reintroduce real XSS risk via the single unsafe_allow_html
+    call site above."""
+    from src.ui import theme as theme_module
+
+    tree = ast.parse(Path(theme_module.__file__).read_text(encoding="utf-8"))
+    assigned_node = None
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Assign) and any(
+            isinstance(t, ast.Name) and t.id == "THEME_CSS" for t in node.targets
+        ):
+            assigned_node = node.value
+            break
+    assert assigned_node is not None, "لم يتم العثور على تعريف THEME_CSS"
+    assert isinstance(assigned_node, ast.Constant) and isinstance(assigned_node.value, str), (
+        "THEME_CSS يجب أن يكون نصًا ثابتًا حرفيًا (وليس f-string أو قيمة ديناميكية)."
+    )
+
+
+def test_document_and_model_output_never_rendered_via_unsafe_html():
+    """Belt-and-braces: the specific values that ARE untrusted (extracted
+    document text, model/audit output, file names) must be displayed via
+    plain st.write, never wrapped in markdown+unsafe_allow_html."""
+    app_source = (PROJECT_ROOT / "app.py").read_text(encoding="utf-8")
+    for risky_var in ("document_text", "final_answer", "analysis_text", "result.get"):
+        for line in app_source.splitlines():
+            if risky_var in line and "unsafe_allow_html" in line:
+                pytest.fail(f"عرض محتوى غير موثوق عبر HTML غير آمن: {line.strip()}")
 
 
 def test_control_characters_stripped_by_sanitizer():
