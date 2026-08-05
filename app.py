@@ -17,7 +17,7 @@ from src.security.rate_limit import check_rate_limit
 from src.security.audit_log import log_event, new_correlation_id
 from src.ui.theme import THEME_CSS
 
-st.set_page_config(page_title="Digital Transformation Compliance Auditor", layout="wide")
+st.set_page_config(page_title="رقيب - Digital Transformation Compliance Auditor", layout="wide")
 # Static, hardcoded theme only (see src/ui/theme.py docstring for why this is
 # the one safe use of unsafe_allow_html in the app — enforced by a test).
 st.markdown(THEME_CSS, unsafe_allow_html=True)
@@ -78,7 +78,7 @@ with st.sidebar:
         st.caption("وضع التحقق من الهوية معطّل (AUTH_ENABLED=false) — للاستخدام المحلي فقط.")
 
 # ----------------------------------------------------------------------------
-st.title("مساعد تدقيق الامتثال التنظيمي")
+st.title("مساعد تدقيق الامتثال التنظيمي (رقيب)")
 st.write(
     "ارفع وثيقة التدقيق (PDF أو Word) وسيقوم النظام تلقائيًا بقراءة نصها، واستخراج أي صور مضمّنة بداخلها "
     "وتحليلها بواسطة نموذج رؤية، ثم قياس مدى الامتثال للمعيار المختار — دون أي خطوات إضافية.")

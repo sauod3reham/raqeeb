@@ -1,4 +1,4 @@
-# مساعد تدقيق الامتثال التنظيمي (Digital Transformation & Cybersecurity Compliance Auditor)
+# مساعد تدقيق الامتثال التنظيمي (رقيب) — Digital Transformation & Cybersecurity Compliance Auditor
 
 مساعد ذكي يدقّق امتثال مستندات الجهات الحكومية السعودية لمعايير **قياس** للتحول الرقمي (هيئة الحكومة الرقمية DGA)
 والضوابط الأساسية للأمن السيبراني **ECC** (الهيئة الوطنية للأمن السيبراني NCA)، عبر رفع مستند واحد (PDF أو Word)
