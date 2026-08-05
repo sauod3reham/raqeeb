@@ -1,70 +1,134 @@
-# Digital Transformation Compliance Auditor
+# مساعد تدقيق الامتثال التنظيمي (Digital Transformation & Cybersecurity Compliance Auditor)
 
-## Project Overview
+مساعد ذكي يدقّق امتثال مستندات الجهات الحكومية السعودية لمعايير **قياس** للتحول الرقمي (هيئة الحكومة الرقمية DGA)
+والضوابط الأساسية للأمن السيبراني **ECC** (الهيئة الوطنية للأمن السيبراني NCA)، عبر رفع مستند واحد (PDF أو Word)
+يحتوي نصًا وصورًا — يقرأه النظام تلقائيًا، ويقارنه بالمعيار المحدد، ويصدر درجة امتثال وفجوات وتوصيات وتقرير CSV.
 
-A compliance auditing assistant for digital transformation proposals. The tool reviews proposal text against a knowledge base of compliance requirements, retrieves evidence for the findings, and generates a structured compliance summary. The product is built with Python and Streamlit.
+## الفريق
+- الفريق: [أدخل اسم الفريق]
+- الأعضاء: رغد عسيري، ريهام المطيري، ليان الدوسري
 
-## Team
-- Team name: Digital Transformation Compliance Auditor
-- Members: [Add your names here]
+## المشكلة والمستخدم المستهدف
+الجهات الحكومية السعودية ملزمة بالامتثال لعشرات المعايير التنظيمية (89 معيارًا في إطار قياس، 108 ضوابط في إطار ECC).
+المراجعة اليدوية لمستندات الجهة مقابل هذا الكم من المعايير بطيئة وغير متسقة بين المراجعين. المستخدم المستهدف: مدقق
+الامتثال أو مسؤول حوكمة تقنية المعلومات/الأمن السيبراني داخل الجهة.
 
-## Problem Statement
-Organizations often need to check whether digital transformation plans follow data privacy, access control, audit logging, and continuity requirements. Manual review is slow and inconsistent.
+## الحل والقيمة
+يرفع المستخدم مستند الجهة، يختار الإطار (قياس/ECC) ثم المنظور/المحور ثم المعيار المحدد بدقة، فيقوم النظام تلقائيًا
+(بدون أي أزرار إضافية) بقراءة النص واستخراج الصور المضمّنة وتحليلها، ومقارنة المحتوى **حصريًا** بنص المعيار الرسمي
+المسترجَع من قاعدة المعرفة، ثم إصدار: درجة امتثال، المتطلبات المتحققة، الفجوات، توصيات، وتقرير CSV قابل للتنزيل.
 
-## Solution
-The system uses a small retrieval-augmented generation pipeline (RAG) to ground answers in compliance guidelines, then applies an agent-style workflow with two tools: a compliance score calculator and a CSV report generator.
+## المزايا الرئيسية
+- دعم إطارين تنظيميين رسميين كاملين: قياس (89 معيارًا) وECC (108 ضوابط)
+- رفع ملف واحد (PDF أو Word) يُعالَج تلقائيًا: نص + صور مضمّنة
+- تحليل الصور بنموذج رؤية، مع التحقق من مطابقتها للمعيار ومن حداثة تاريخها (سنة القياس الحالية)
+- لا حكم امتثال بدون دليل واضح — الحالات غير المدعومة تُصنَّف "غير مثبت / يتطلب مراجعة بشرية"
+- تسجيل دخول وصلاحيات حسب الدور (Admin / Compliance Auditor / Reviewer / Viewer)
+- حماية من محاولات حقن التعليمات (Prompt Injection) المباشرة وغير المباشرة
+- سجل تدقيق (Audit Log) محلي لكل عملية حساسة
+- تقرير CSV قابل للتنزيل لكل عملية تدقيق
 
-## Main Features
-- Proposal text input and compliance review
-- Retrieval-backed evidence from a knowledge base
-- Structured output with gaps, recommendations, and score
-- CSV export for compliance reports
+## كيف تُستخدم مفاهيم اليوم الأول (Day 1)
+- المنطق الرئيسي مكتوب بالكامل بلغة Python (`app.py` + حزمة `src/`)
+- استدعاء النموذج عبر OpenAI API بواسطة `src/llm/client.py`، ببرومبت واضح يحدد الدور والمهمة والحدود ومخرجات
+  منظمة (`src/llm/prompts.py`)
+- المخرجات منظمة كدرجة امتثال رقمية + نص مهيكل + تقرير CSV
+- تعامل واضح مع المدخلات الناقصة/الملفات غير المدعومة/أخطاء النموذج عبر رسائل عربية عامة (لا تفاصيل تقنية للمستخدم)،
+  مع تسجيل التفاصيل الفنية داخليًا فقط
 
-## Architecture
-- `app.py`: Streamlit interface
-- `src/rag`: Knowledge ingestion and retrieval
-- `src/agent`: Tool selection and orchestrator logic
-- `src/llm`: OpenAI model calls and prompt construction
-- `data/knowledge`: Compliance guideline source files
+## خط أنابيب RAG
+**مرحلة التحضير (Knowledge preparation):**
+ملفات المعرفة (`data/knowledge/*.txt` — نصوص رسمية مُلخّصة من وثائق قياس وECC) → تنظيف (`src/rag/chunking.py`) →
+تقسيم لمقاطع ~120 كلمة → توليد Embeddings (`text-embedding-3-large`) → تخزين في Vector Store محلي
+(`data/rag_vectors.json`, `src/rag/vector_store.py`)
 
-## Day 1 Concepts Used
-- Model-to-solution flow in Python
-- Prompt design with role, context, and structure
-- Input validation and error handling
-- Grounded output with evidence
+**مرحلة التشغيل (Product runtime):**
+بناء استعلام مرتبط بالمعيار المحدد تحديدًا → embedding للاستعلام → بحث بالتشابه الجيبي (`search_vectors`, Top-K=6) →
+إرجاع أقرب المقاطع مع اسم المصدر → بناء برومبت مُحصَّن يفصل تعليمات النظام عن المحتوى غير الموثوق
+(`wrap_untrusted`) → توليد إجابة مبنية على الدليل فقط.
 
-## RAG Pipeline
-- Knowledge files are loaded from `data/knowledge`
-- Text is chunked and embedded
-- Embeddings are stored locally as a JSON vector store
-- User queries retrieve the top relevant evidence chunks
+**المصدر:** ملفات معرفة نصية مُشتقة من وثيقتي DGA وNCA الرسميتين. الموديل: `text-embedding-3-large` (OpenAI).
+قاعدة المتجهات: ملف JSON محلي بسيط (`src/rag/vector_store.py`) — بديل خفيف عن قاعدة متجهات كاملة، مناسب لحجم
+قاعدة المعرفة الحالي.
 
-## Tools
-1. `calculate_compliance_score` - computes a score based on identified compliance items
-2. `generate_compliance_report` - creates a CSV report from the audit findings
+## الوكيل (Agent) والأدوات
+المُنسِّق (`src/agent/orchestrator.py`) يبني البرومبت المُحصَّن، يستدعي النموذج، ثم يستخدم أداتين حقيقيتين
+(`src/agent/tool_registry.py`):
+1. **`calculate_compliance_score`** — يحسب نسبة الامتثال المئوية من نتائج المطابقة.
+2. **`generate_compliance_report`** — يُصدر تقرير CSV منظم (المتطلب / الحالة / الدليل / الملاحظات).
 
-## Local Setup
-1. Create a Python environment
-2. Install dependencies: `pip install -r requirements.txt`
-3. Copy `.env.example` to `.env` and add `OPENAI_API_KEY`
-4. Run the app: `streamlit run app.py`
+بالإضافة لخطوة تحليل بصري (`analyze_image_evidence`) تفحص كل صورة مضمّنة في المستند بنموذج رؤية، وتتحقق من
+مطابقتها ومن تاريخها. ضابط تحكم أمني (`src/security/prompt_guard.py`) يفحص محاولات حقن التعليمات قبل أي استدعاء
+للنموذج ويوقف الطلب فورًا عند الاشتباه، مع حدود لطول المُخرَجات (`max_tokens`) وتحديد معدل الاستخدام لكل جلسة
+(`src/security/rate_limit.py`).
 
-## Environment Variables
-- `OPENAI_API_KEY`
-- `OPENAI_MODEL` (default `gpt-3.5-turbo`)
-- `OPENAI_EMBEDDING_MODEL` (default `text-embedding-3-large`)
-- `RAG_TOP_K` (default `4`)
+## حزمة التقنيات (Tech Stack)
+- **اللغة:** Python 3.12
+- **الواجهة:** Streamlit (`app.py`) بثيم مخصص (`src/ui/theme.py`)
+- **النموذج اللغوي والرؤية:** OpenAI (`gpt-4o-mini`) عبر `openai` SDK
+- **Embeddings:** OpenAI `text-embedding-3-large`
+- **قاعدة المتجهات:** JSON محلي (`data/rag_vectors.json`)
+- **قراءة المستندات:** `pypdf` (PDF) و`python-docx` (Word)، مع استخراج الصور المضمّنة
+- **الأمان:** مصادقة محلية (PBKDF2-HMAC)، RBAC، Rate Limiting، سجل تدقيق — راجع `SECURITY_REPORT.md`
+- **الاختبارات:** `pytest` (35 اختبارًا أمنيًا في `tests/test_security.py`)
 
-## Data
-- `data/knowledge/compliance_guidelines.txt` contains the sample compliance requirements used by the RAG pipeline.
+## البيانات
+- `data/knowledge/dga_digital_transformation_standards.txt` — ملخص مُعاد صياغته (وليس نسخًا حرفيًا) لوثيقة معايير
+  قياس الرسمية الصادرة عن DGA (89 معيارًا).
+- `data/knowledge/ecc_essential_cybersecurity_controls.txt` — ملخص مُعاد صياغته لوثيقة الضوابط الأساسية للأمن
+  السيبراني ECC الصادرة عن NCA (108 ضوابط).
+- `test_files/*.docx` — مستندات اختبار **مُصطنعة بالكامل** (Synthetic) من إعداد الفريق لغرض العرض التجريبي فقط،
+  لا تخص أي جهة حقيقية.
+- لا توجد بيانات حقيقية أو حساسة أو خاصة بأي جهة تم رفعها لهذا المستودع.
 
-## Limitations
-- The current knowledge base is small and synthetic.
-- The system depends on OpenAI API access for embeddings and generation.
-- It does not yet support PDF ingestion or long document uploads.
+## إعداد التشغيل المحلي
+```bash
+# 1) تثبيت الاعتماديات
+pip install -r requirements.txt
 
-## Future Improvements
-- Add PDF and DOCX ingestion
-- Use a proper vector database like Chroma, Qdrant or Supabase
-- Add more compliance categories and company-specific rules
-- Add a richer UI with file upload and interactive evidence selection
+# 2) إعداد متغيرات البيئة
+cp .env.example .env
+# ثم عدّل .env وأضف مفتاح OPENAI_API_KEY الخاص بك
+
+# 3) إنشاء أول حساب مستخدم (مطلوب لأن نظام الدخول مفعّل افتراضيًا)
+python scripts/manage_users.py add admin admin
+
+# 4) تشغيل التطبيق
+streamlit run app.py
+```
+التطبيق سيفتح على `http://localhost:8501`. سجّل دخول بالحساب الذي أنشأته في الخطوة 3.
+
+## متغيرات البيئة المطلوبة
+راجع `.env.example` للقائمة الكاملة (بدون قيم فعلية). أهمها:
+- `OPENAI_API_KEY` — **مطلوب**، لا قيمة افتراضية.
+- `OPENAI_MODEL` (افتراضي `gpt-4o-mini`), `OPENAI_VISION_MODEL`, `OPENAI_EMBEDDING_MODEL`
+- `AUTH_ENABLED` (افتراضي `true`) — تفعيل/تعطيل الدخول والصلاحيات
+- `CURRENT_COMPLIANCE_YEAR` (افتراضي `2026`) — السنة المعتمدة للتحقق من حداثة الأدلة المصوّرة
+- `AUDIT_RATE_LIMIT_MAX/WINDOW_SECONDS`, `IMAGE_RATE_LIMIT_MAX/WINDOW_SECONDS`
+
+## الأمان
+تفاصيل كاملة عن الضوابط الأمنية المطبَّقة (حماية من Prompt Injection، RBAC، فحص الملفات، سجل التدقيق، الاختبارات
+الأمنية الـ35، والمخاطر المتبقية بصراحة) موثّقة في **[`SECURITY_REPORT.md`](./SECURITY_REPORT.md)**.
+
+## القيود الحالية
+- كشف محاولات حقن التعليمات استدلالي (Heuristic) وليس ضمانًا مطلقًا؛ النتائج الحساسة تحتاج مراجعة بشرية.
+- لا يوجد فحص فيروسات فعلي لمحتوى الملفات المرفوعة (فقط فحص نوع المحتوى الحقيقي عبر Magic Bytes وحدود الحجم).
+- قاعدة المعرفة عامة ومشتركة (نصوص المعايير الرسمية) وليست مُخصَّصة أو معزولة لكل جهة على حدة.
+- قاعدة المتجهات ملف JSON محلي بسيط، غير مناسب لحجم بيانات كبير جدًا أو لتعدد المستخدمين المتزامن على نطاق واسع.
+- يعتمد النظام كليًا على توفر رصيد فعّال في حساب OpenAI.
+
+## التحسينات المستقبلية
+- إضافة أطر تنظيمية سعودية إضافية (مثل PDPL، ضوابط NDMO لحوكمة البيانات)
+- سجل تدقيق دائم لكل جهة مع مقارنة الأداء عبر الزمن
+- فحص فيروسات فعلي (مثل ClamAV) للملفات المرفوعة
+- الانتقال لقاعدة متجهات حقيقية (Chroma/Qdrant/Supabase pgvector) عند نمو حجم البيانات
+- نشر عام على Streamlit Community Cloud
+
+## أمثلة اختبار
+ملفات جاهزة في `test_files/` لتجربة النظام مباشرة (راجع التعليقات داخل كل ملف):
+- `1_تقرير_التخطيط_الاستراتيجي.docx` — قياس / المنظور الأول / المعيار 5.1.1 (يحتوي دليلًا مصورًا محدثًا)
+- `2_سياسة_الاستراتيجية_السيبرانية.docx` — ECC / المحور 1-1 / الضابط 1-1-1 (يحتوي دليلًا مصورًا **غير محدث** لاختبار
+  ميزة التحقق من التاريخ)
+- `3_اختبار_حماية_من_الحقن.docx` — يحتوي محاولة "تجاهل التعليمات السابقة" لاختبار ضابط الحماية الأمني
+
+عرضان تقديميان جاهزان في `presentation/`: نسخة كاملة (تقنية وأمنية) للمناقشة، ونسخة مبسّطة للفريق.
