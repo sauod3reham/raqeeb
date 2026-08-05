@@ -30,26 +30,29 @@ THEME_CSS = """
     --dga-border: #E2E8ED;
 }
 
-/* Base RTL app direction (the app's own labels/copy are Arabic-first). */
-html, body, [data-testid="stAppViewContainer"], [data-testid="stSidebar"] {
-    direction: rtl;
-}
-
-* {
+/* Hard-force right-to-left, right-aligned rendering everywhere. Streamlit
+   ships its own left-to-right `direction`/`text-align` on internal wrapper
+   divs with equal-or-higher specificity, so both properties must be pinned
+   with !important on a maximally broad selector, and `text-align: right`
+   is used directly (not `start`) so alignment does not depend on how any
+   given browser resolves `direction` under unicode-bidi in edge cases. */
+*, *::before, *::after {
+    direction: rtl !important;
+    text-align: right !important;
     font-family: 'Tajawal', 'Inter', -apple-system, sans-serif;
 }
 
-/* Let every text-bearing element auto-detect ITS OWN direction from its
-   content, per the Unicode Bidi Algorithm: a block whose text starts with
-   Arabic renders right-to-left/right-aligned, a block whose text starts
-   with English/Latin renders left-to-right/left-aligned — automatically,
-   for every string the app displays (labels, extracted document text,
-   model output, file names, etc.) without needing to special-case each one. */
-p, span, div, li, td, th, label, h1, h2, h3, h4, h5, h6,
-.stMarkdown, .stText, .stAlert, .stException,
+/* Inside that RTL frame, let text-bearing content still auto-detect ITS
+   OWN reading direction per the Unicode Bidi Algorithm: an English/Latin
+   sentence embedded in the (mostly Arabic) extracted document text or
+   model output will still shape left-to-right internally, while staying
+   inside the right-aligned block above. This does not fight the hard
+   right-align rule above — it only affects in-run character ordering. */
+p, span, div, li, td, th, label, a,
+.stMarkdown, .stMarkdown *, .stText,
+[data-testid="stMarkdownContainer"], [data-testid="stMarkdownContainer"] *,
 textarea, input[type="text"], input[type="password"] {
-    unicode-bidi: plaintext;
-    text-align: start;
+    unicode-bidi: plaintext !important;
 }
 
 /* ---- Header ---- */
@@ -63,6 +66,15 @@ h1 {
 }
 h2, h3 {
     color: var(--dga-navy);
+}
+
+/* ---- Hide Streamlit's default chrome (belt-and-braces on top of
+   client.toolbarMode="minimal" in .streamlit/config.toml, in case a given
+   Streamlit version still renders part of this markup). ---- */
+#MainMenu, header [data-testid="stToolbar"], [data-testid="stDecoration"],
+a[href*="deploy" i] {
+    visibility: hidden !important;
+    height: 0 !important;
 }
 
 /* ---- Sidebar ---- */

@@ -2,7 +2,6 @@ import hashlib
 import streamlit as st
 from src.config import (
     OPENAI_API_KEY,
-    CURRENT_COMPLIANCE_YEAR,
     AUDIT_RATE_LIMIT_MAX,
     AUDIT_RATE_LIMIT_WINDOW_SECONDS,
 )
@@ -86,13 +85,6 @@ st.write(
 
 if not OPENAI_API_KEY:
     st.warning("الرجاء إعداد OPENAI_API_KEY في ملف .env أو كمتغير بيئة لاستخدام نموذج OpenAI.")
-
-with st.expander("عن المنتج"):
-    st.write(
-        "يعتمد النظام على قاعدة معرفة تضم نصوص الأطر التنظيمية (معايير قياس وضوابط ECC)، ويستخدم بحث RAG "
-        "لمطابقة محتوى الوثيقة المرفوعة (نصًا وصورًا) مع متطلبات المعيار المحدد، "
-        f"مع التحقق من كون أي دليل مصوَّر محدثًا بتاريخ عام {CURRENT_COMPLIANCE_YEAR}. "
-        "لا يُصدر النظام حكم امتثال دون دليل واضح؛ الحالات غير المدعومة تُصنَّف \"غير مثبت / يتطلب مراجعة بشرية\".")
 
 if not has_permission(current_role, "view_knowledge_base"):
     st.error("لا تملك صلاحية استخدام هذه الأداة. يرجى التواصل مع مسؤول النظام.")

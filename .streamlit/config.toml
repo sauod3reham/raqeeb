@@ -12,6 +12,12 @@ maxUploadSize = 20
 [browser]
 gatherUsageStats = false
 
+[client]
+# Hide Streamlit's default hamburger menu / "Deploy" button for a cleaner,
+# non-generic-looking interface (this is a supported Streamlit setting, not
+# a CSS hack, so it survives Streamlit version upgrades).
+toolbarMode = "minimal"
+
 [theme]
 # Colors approximating the Saudi Digital Government visual identity
 # (navy + teal) — no official DGA brand file was supplied, so this is a

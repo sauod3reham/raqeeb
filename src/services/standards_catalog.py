@@ -285,7 +285,7 @@ ECC_CATALOG = {
 
 FRAMEWORKS = {
     "qiyas": {
-        "label": "معايير قياس للتحول الرقمي - هيئة الحكومة الرقمية (DGA)",
+        "label": "معايير التحول الرقمي قياس - هيئة الحكومة الرقمية (DGA)",
         "catalog": DGA_CATALOG,
     },
     "ecc": {
