@@ -1,4 +1,4 @@
-from src.config import MAX_CHUNK_WORDS
+from src.config import MAX_CHUNK_WORDS, CHUNK_OVERLAP_WORDS
 from src.rag.loaders import read_knowledge_files
 from src.rag.chunking import chunk_text
 from src.rag.vector_store import save_vector_store
@@ -9,7 +9,7 @@ def prepare_knowledge() -> list[dict]:
     all_vectors = []
     documents = read_knowledge_files()
     for document in documents:
-        chunks = chunk_text(document["text"], max_words=MAX_CHUNK_WORDS)
+        chunks = chunk_text(document["text"], max_words=MAX_CHUNK_WORDS, overlap_words=CHUNK_OVERLAP_WORDS)
         embeddings = create_embeddings(chunks)
         for chunk, embedding in zip(chunks, embeddings):
             all_vectors.append(
